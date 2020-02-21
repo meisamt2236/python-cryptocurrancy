@@ -32,6 +32,11 @@ class Block:
             f'nonce: {self.nonce})'
         )
     
+    def __eq__(self, other):
+        # This function helps checking two block instances
+        # It's used for genesis block checking in blockchain
+        return self.__dict__ == other.__dict__
+
     @staticmethod
     def mine_block(last_block, data):
         timestamp = time.time_ns()
@@ -59,11 +64,33 @@ class Block:
         if (last_block.difficulty - 1) > 0:
             return last_block.difficulty - 1
         return 1
+    
+    @staticmethod
+    def is_valid_block(last_block, block):
+        if block.last_hash != last_block.hash:
+            raise Exception('The block last_hash is not correct!')
+        if hex_to_binary(block.hash)[0:block.difficulty] != '0' * block.difficulty:
+            raise Exception('The proof of work requirement was not met!')
+        if abs(last_block.difficulty - block.difficulty) > 1:
+            raise Exception('Block difficulty is not adjusted by one!')
+        reconstructed_hash = crypto_hash(
+            block.timestamp,
+            block.last_hash,
+            block.data,
+            block.nonce,
+            block.difficulty
+        )
+        if block.hash != reconstructed_hash:
+            raise Exception('The block hash is not correct!')
 
 def main():
     genesis_block = Block.genesis()
-    block = Block.mine_block(genesis_block, 'foo')
-    print(block)
+    bad_block = Block.mine_block(genesis_block, 'foo')
+    bad_block.last_hash = 'evil_data'
+    try:
+        Block.is_valid_block(genesis_block, bad_block)
+    except Exception as e:
+        print(f'Validation: {e}')
 
 if __name__ == '__main__':
     main()
