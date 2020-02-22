@@ -20,6 +20,19 @@ class Blockchain:
             raise Exception(f'Can not replace due to invalid chain: {e}')
         self.chain = chain
 
+    def to_json(self):
+        # serialize the blockchain into a list of blocks
+        serialized_chain = []
+        for block in self.chain:
+            serialized_chain.append(block.to_json())
+        return serialized_chain
+    
+    def from_json(chain_json):
+        # deserialize a list of serialized blocks into a blockchain instance
+        blockchain = Blockchain()
+        blockchain.chain = list(map(lambda block_json: Block.from_json(block_json), chain_json))
+        return blockchain
+
     @staticmethod
     def is_valid_chain(chain):
         if chain[0] != Block.genesis():

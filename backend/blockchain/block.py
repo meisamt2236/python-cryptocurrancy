@@ -37,6 +37,10 @@ class Block:
         # It's used for genesis block checking in blockchain
         return self.__dict__ == other.__dict__
 
+    def to_json(self):
+        # serialize the block into a dictionary of it's attribute
+        return self.__dict__
+
     @staticmethod
     def mine_block(last_block, data):
         timestamp = time.time_ns()
@@ -56,6 +60,11 @@ class Block:
     @staticmethod
     def genesis():
         return Block(**GENESIS_DATA)
+
+    @staticmethod
+    def from_json(block_json):
+        # deserialize a block's json representation back into a block instance
+        return Block(**block_json)
 
     @staticmethod
     def adjust_difficulty(last_block, new_timestamp):
