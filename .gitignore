@@ -2,3 +2,4 @@ __pycache__/
 .DS_Store
 blockchain-env/
 backend/pubnub.py
+frontend/node_modules

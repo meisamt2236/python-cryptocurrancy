@@ -36,3 +36,7 @@ export PEER=True && python3 -m backend.app
 ```
 {"recipient": "foo", "amount": 15}
 ```
+**To run the frontend go to frontend directory and run this:**
+```
+npm install && npm start
+```
