@@ -32,3 +32,7 @@ SUBSCRIBE_KEY = 'Your application subscribe key'
 ```
 export PEER=True && python3 -m backend.app
 ```
+**Postman:( localhost:5000/wallet/transact -> POST -> body -> raw -> JSON )**
+```
+{"recipient": "foo", "amount": 15}
+```
