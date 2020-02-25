@@ -12,12 +12,9 @@ code {
     monospace;
 }
 
-.walletInfo {
-  width: 500px;
-}
-
 .Block {
-  border: 1px solid #fff;
+  background-color: #363636;
+  border-radius: 25px;
   padding: 10%;
   margin: 2%;
 }

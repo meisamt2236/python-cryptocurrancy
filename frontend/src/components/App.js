@@ -1,28 +1,31 @@
 import React, {useState, useEffect} from 'react';
 import logo from '../assets/logo.svg';
 import '../App.css';
+import Blockchain from './Blockchain';
+import {API_BASE_URL} from '../config';
 
 function App() {
   const [walletInfo, setWalletInfo]= useState({});
   useEffect(() => {
-    fetch('http://localhost:5000/wallet/info').then(response => response.json()).then(json => setWalletInfo(json));
+    fetch(`${API_BASE_URL}/wallet/info`).then(response => response.json()).then(json => setWalletInfo(json));
   }, []);
   const {address, balance} = walletInfo;
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        <h3>
           Welcome to the Pychain world!
-        </p>
+        </h3>
         <div>
-          <div className="WalletInfo">
+          <div>
             Address: {address}
           </div>
-          <div className="WalletInfo">
+          <div>
             Balance: {balance}
           </div>
         </div>
+        <Blockchain/>
         <a
           className="App-link"
           href="https://github.com/meisamt2236/python-blockchain"
