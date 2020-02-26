@@ -40,3 +40,7 @@ export PEER=True && python3 -m backend.app
 ```
 npm install && npm start
 ```
+**To seed the backend with data:**
+```
+export SEED_DATA=True && python3 -m backend.app
+```
